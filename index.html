@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hidden King Fan Club</title>
+<meta name="description" content="A Deadlock fan site that exists so you press play on Hidden King and keep it playing.">
+<link rel="icon" href="assets/brand/steam_logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100..900&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Limelight&display=swap">
+<link rel="stylesheet" href="style.css">
+<script type="module" src="main.js"></script>
+</head>
+<body>
+<a class="skip" href="#song">Skip to the song</a>
+
+<header class="masthead">
+  <a class="logo" href="#song"><img src="assets/brand/steam_logo.png" alt="" width="32" height="32"><span class="logo-text">Hidden King Fan Club</span></a>
+  <nav class="case-nav" aria-label="Case file">
+    <a href="#song">Song</a>
+    <a href="#suspects">Suspects</a>
+    <a href="#evidence">Evidence</a>
+    <a href="#lore">Lore</a>
+    <a href="#credits">Credits</a>
+  </nav>
+  <div class="utils">
+    <button type="button" class="util" id="flash-toggle" aria-pressed="false">no flashes</button>
+    <button type="button" class="util" id="mute-toggle" aria-pressed="false">mute</button>
+    <button type="button" class="util" id="jukebox-tab" aria-controls="jukebox" aria-expanded="true">jukebox</button>
+  </div>
+</header>
+
+<div class="letterbox" aria-hidden="true"><i></i><i></i></div>
+
+<main>
+  <section id="song" class="cold-open" aria-labelledby="hero-line">
+    <div class="sunburst" aria-hidden="true"></div>
+    <h1 id="hero-line" class="hero-line is-scattered" data-punch aria-label="I'm a hidden king, yeah yeah"></h1>
+    <div class="censor" aria-hidden="true">Censored by the Archmother</div>
+    <svg class="amber-hand" viewBox="0 0 120 90" aria-hidden="true">
+      <path d="M8 38h46l-6-14c-2-5 6-9 10-4l16 20h22c6 0 10 4 10 10v14c0 6-4 10-10 10H50c-4 0-7-1-10-3L28 62H8z"/>
+      <path d="M78 46h28M78 56h28M78 66h24" fill="none" stroke="#0E2B25" stroke-width="3"/>
+    </svg>
+    <div class="cold-controls">
+      <button type="button" id="drop" class="btn-drop">Drop the beat</button>
+      <div class="sync-tools" role="group" aria-label="Sync tools">
+        <button type="button" class="util" id="tap">tap tempo</button>
+        <span class="readout">bpm: <output id="bpm-out">000</output></span>
+        <span class="readout">offset</span>
+        <button type="button" class="util" id="offset-down" aria-label="Offset minus 10 milliseconds">-</button>
+        <output id="offset-out">0ms</output>
+        <button type="button" class="util" id="offset-up" aria-label="Offset plus 10 milliseconds">+</button>
+      </div>
+      <p class="hint">Hold to slow down. Let go to regret it.</p>
+      <p class="record-badge" id="record-badge" hidden>Record mode. Press space on every word. Enter prints LYRICS.</p>
+    </div>
+  </section>
+
+  <section id="suspects" class="suspects" aria-labelledby="suspects-title">
+    <header class="sec-head">
+      <h2 id="suspects-title" data-punch>Suspects</h2>
+      <p>Pick your problem.</p>
+    </header>
+    <div class="lineup" id="lineup" tabindex="0" aria-label="Police lineup, use arrow keys to pick a suspect">
+      <ol class="lineup-strip" id="lineup-strip"></ol>
+    </div>
+    <div class="lineup-foot">
+      <p class="hint">Drag or use arrows. Enter books the suspect.</p>
+      <button type="button" class="btn" id="book">Book suspect</button>
+    </div>
+    <aside class="protocol" id="protocol" aria-live="polite" hidden></aside>
+  </section>
+
+  <section id="evidence" class="evidence" aria-labelledby="evidence-title">
+    <header class="sec-head">
+      <h2 id="evidence-title" data-punch>Evidence</h2>
+      <div class="wall-tools">
+        <button type="button" class="util" id="zoom-out" aria-label="Zoom out">-</button>
+        <span class="readout">zoom</span>
+        <button type="button" class="util" id="zoom-in" aria-label="Zoom in">+</button>
+        <button type="button" class="btn" id="connect">Connect the dots</button>
+        <button type="button" class="btn btn-ghost" id="new-evidence">New evidence</button>
+      </div>
+    </header>
+    <div class="wall-view" id="wall-view">
+      <div class="wall-size" id="wall-size">
+        <div class="wall" id="wall">
+          <svg class="threads" id="threads" aria-hidden="true"></svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="lore" class="lorefake" aria-labelledby="lore-title">
+    <header class="sec-head sec-head-center">
+      <h2 id="lore-title" data-punch>Lore or fake</h2>
+      <p>Some of this is canon. Valve wrote the weird ones.</p>
+    </header>
+    <article class="case">
+      <figure class="case-photo">
+        <img id="case-portrait" alt="" width="280" height="380">
+        <figcaption id="case-name"></figcaption>
+        <span class="case-stamp" id="case-stamp" aria-hidden="true"></span>
+      </figure>
+      <div class="case-body">
+        <p class="case-meta"><span id="case-round"></span><span id="case-score"></span><span id="case-streak"></span></p>
+        <blockquote class="case-quote" id="case-quote" aria-live="polite"></blockquote>
+        <div class="case-actions" id="case-actions">
+          <button type="button" class="btn" id="answer-lore">Lore <kbd>L</kbd></button>
+          <button type="button" class="btn btn-ghost" id="answer-fake">Fake <kbd>F</kbd></button>
+        </div>
+        <p class="case-truth" id="case-truth" aria-live="polite"></p>
+        <button type="button" class="btn" id="case-next" hidden>Next exhibit</button>
+      </div>
+    </article>
+    <div class="case-result" id="case-result" hidden>
+      <p class="case-final" aria-live="polite"><b id="final-score">0</b><span>/10</span></p>
+      <p class="case-rank" id="final-rank"></p>
+      <p class="case-best" id="final-best"></p>
+      <button type="button" class="btn" id="case-again">Run it back</button>
+    </div>
+  </section>
+
+  <section id="credits" class="credits" aria-labelledby="credits-title">
+    <div class="crawl" id="crawl" tabindex="0" aria-label="Credits, scroll to speed up, hold to stop">
+      <div class="roll" id="roll">
+        <h2 id="credits-title" class="credits-title">Hidden King Fan Club</h2>
+        <dl class="billing" id="billing"></dl>
+        <p class="rated">Rated M for Mo &amp; Krill</p>
+      </div>
+    </div>
+    <div class="credits-foot">
+      <button type="button" class="btn" id="restore">Restore the King</button>
+      <a class="btn btn-ghost" href="#song">Back to the top</a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer" id="footer">
+  <p>No heroes were harmed. Some were drained.</p>
+  <p>Not affiliated with Valve. Valve, please don't.</p>
+  <p>Song: "if they put me on the hidden king track" by <a href="https://www.youtube.com/watch?v=rwAg0klZlAA">youreashotgun</a>. Hero portraits from game files via <a href="https://deadlock-api.com">deadlock-api.com</a>.</p>
+  <span class="tiny-king" id="tiny-king" aria-hidden="true"></span>
+</footer>
+
+<aside class="jukebox" id="jukebox" aria-label="Jukebox">
+  <div class="jukebox-screen"><div id="yt"></div></div>
+</aside>
+
+<p class="sound-hint" id="sound-hint" hidden>tap anywhere for sound</p>
+<div class="caption" id="caption" aria-live="polite"><p class="caption-text" id="caption-text"></p></div>
+
+<div class="camera-flash" id="camera-flash" aria-hidden="true"></div>
+<div class="yeah-stage" id="yeah-stage" aria-hidden="true"><b>Yeah</b><b>Yeah</b></div>
+
+<dialog class="dossier" id="dossier" aria-labelledby="dossier-name">
+  <div class="dossier-head">
+    <img id="dossier-portrait" alt="" width="140" height="190">
+    <div>
+      <p class="dossier-kicker">Case file</p>
+      <h3 id="dossier-name"></h3>
+      <p id="dossier-alibi"></p>
+    </div>
+  </div>
+  <ul class="dossier-facts" id="dossier-facts"></ul>
+  <div class="dossier-memes" id="dossier-memes"></div>
+  <form method="dialog"><button class="util exhibit-close" aria-label="Close case file">close</button></form>
+</dialog>
+
+<dialog class="exhibit" id="exhibit">
+  <figure>
+    <img id="exhibit-img" alt="">
+    <figcaption>
+      <p class="exhibit-tag" id="exhibit-tag"></p>
+      <p class="exhibit-credit" id="exhibit-credit"></p>
+    </figcaption>
+  </figure>
+  <form method="dialog"><button class="util exhibit-close" aria-label="Close exhibit">close</button></form>
+</dialog>
+</body>
+</html>
